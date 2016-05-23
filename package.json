@@ -1,0 +1,35 @@
+{
+  "name": "require-admin",
+  "version": "1.0.0",
+  "description": "upgrades nodes default require() to an Advanced one with administrative options",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/API-Load-Testing/require-admin.git"
+  },
+  "keywords": [
+    "require",
+    "admin",
+    "advance",
+    "module",
+    "whitelist",
+    "blacklist",
+    "require",
+    "extensions",
+    "require",
+    "other",
+    "files"
+  ],
+  "author": "Hassan Eslaminezhad (Salari)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/API-Load-Testing/require-admin/issues"
+  },
+  "homepage": "https://github.com/API-Load-Testing/require-admin#readme",
+  "dependencies": {
+    "lodash": "^4.13.0"
+  }
+}
