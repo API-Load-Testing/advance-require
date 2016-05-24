@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../advance-require/.idea/advance-require.iml" filepath="$PROJECT_DIR$/../advance-require/.idea/advance-require.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/advance-require.iml" filepath="$PROJECT_DIR$/.idea/advance-require.iml" />
     </modules>
   </component>
 </project>

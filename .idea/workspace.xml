@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="BookmarkManager">
-    <bookmark url="vcs://D:/NodeJS_Programs/Development/API_Load_Testing/require-admin/lib/module.js" line="536" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="adfaaa44-19a5-4f63-ad19-d32ac79900a4" name="Default" comment="" />
+    <list default="true" id="adfaaa44-19a5-4f63-ad19-d32ac79900a4" name="Default" comment="Work in Progress">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.js" afterPath="$PROJECT_DIR$/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+    </list>
     <ignored path="require-admin.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -33,11 +35,12 @@
       <list>
         <option value="$PROJECT_DIR$/lib/module.js" />
         <option value="$PROJECT_DIR$/lib/native_module.js" />
-        <option value="$PROJECT_DIR$/test.js" />
         <option value="$PROJECT_DIR$/lib/require-admin.js" />
         <option value="$PROJECT_DIR$/lib/advance-require.js" />
-        <option value="$PROJECT_DIR$/../advance-require/package.json" />
-        <option value="$PROJECT_DIR$/../advance-require/README.md" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/test.js" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/index.js" />
       </list>
     </option>
   </component>
@@ -78,6 +81,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -97,9 +101,22 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="advance-require" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="advance-require" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="node_modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -114,13 +131,13 @@
     </key>
   </component>
   <component name="RunManager" selected="Node.js.test.js">
-    <configuration default="false" name="require-admin.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="$PROJECT_DIR$/../advance-require/advance-require.js" working-dir="$PROJECT_DIR$/../advance-require/lib">
+    <configuration default="false" name="require-admin.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="$PROJECT_DIR$/advance-require.js" working-dir="$PROJECT_DIR$/lib">
       <method />
     </configuration>
-    <configuration default="false" name="native_module.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="native_module.js" working-dir="$PROJECT_DIR$/../advance-require/lib">
+    <configuration default="false" name="native_module.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="native_module.js" working-dir="$PROJECT_DIR$/lib">
       <method />
     </configuration>
-    <configuration default="false" name="test.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="$PROJECT_DIR$/../advance-require/test.js" working-dir="$PROJECT_DIR$/../advance-require">
+    <configuration default="false" name="test.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="$PROJECT_DIR$/test.js" working-dir="$PROJECT_DIR$">
       <method />
     </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
@@ -207,6 +224,10 @@
       <workItem from="1463984098596" duration="9989000" />
       <workItem from="1464012240715" duration="3750000" />
       <workItem from="1464066824904" duration="22120000" />
+      <workItem from="1464097410821" duration="192000" />
+      <workItem from="1464097648830" duration="3000" />
+      <workItem from="1464097969609" duration="10568000" />
+      <workItem from="1464109771979" duration="110000" />
     </task>
     <task id="LOCAL-00001" summary="Work in Progress">
       <created>1463997786442</created>
@@ -219,7 +240,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46318000" />
+    <option name="totallyTimeSpent" value="57191000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1296" height="1000" extended-state="6" />
@@ -228,7 +249,6 @@
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16484375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32922733" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32922733" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -240,6 +260,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32922733" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -265,7 +286,7 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/lib/module.js">
+    <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -273,160 +294,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../advance-require/advance-require.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3696">
-          <caret line="176" column="4" selection-start-line="176" selection-start-column="4" selection-end-line="176" selection-end-column="4" />
-          <folding>
-            <element signature="e#462#1051#0" expanded="false" />
-            <element signature="e#1081#5025#0" expanded="false" />
-            <element signature="e#2537#2616#0" expanded="false" />
-            <element signature="e#2667#2822#0" expanded="false" />
-            <element signature="e#2897#2976#0" expanded="false" />
-            <element signature="e#3027#3182#0" expanded="false" />
-            <element signature="e#3302#3540#0" expanded="false" />
-            <element signature="e#3592#3990#0" expanded="false" />
-            <element signature="e#4033#4070#0" expanded="false" />
-            <element signature="e#4135#4314#0" expanded="false" />
-            <element signature="e#4352#4384#0" expanded="false" />
-            <element signature="e#4498#4615#0" expanded="false" />
-            <element signature="e#4679#4937#0" expanded="false" />
-            <element signature="e#4985#5021#0" expanded="false" />
-            <element signature="n#!!block;n#saveNodeDefaults#0" expanded="false" />
-            <element signature="n#!!block;n#ApplyAdvanceOptions#0" expanded="false" />
-            <element signature="n#!!block;n#ApplySearchPaths#0" expanded="false" />
-            <element signature="n#!!block;n#ApplyExtensions#0" expanded="false" />
-            <element signature="n#!!block;n#processOverrideList#0" expanded="false" />
-            <element signature="n#!!block;n#restoreDefault#0" expanded="false" />
-            <element signature="n#!!block;n#stripBOM#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/module.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7917">
-          <caret line="377" column="10" selection-start-line="377" selection-start-column="10" selection-end-line="377" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../advance-require/advance-require.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#462#1051#0" expanded="false" />
-            <element signature="e#1081#5025#0" expanded="false" />
-            <element signature="e#2537#2616#0" expanded="false" />
-            <element signature="e#2667#2822#0" expanded="false" />
-            <element signature="e#2897#2976#0" expanded="false" />
-            <element signature="e#3027#3182#0" expanded="false" />
-            <element signature="e#3302#3540#0" expanded="false" />
-            <element signature="e#3592#3990#0" expanded="false" />
-            <element signature="e#4033#4070#0" expanded="false" />
-            <element signature="e#4135#4314#0" expanded="false" />
-            <element signature="e#4352#4384#0" expanded="false" />
-            <element signature="e#4498#4615#0" expanded="false" />
-            <element signature="e#4679#4937#0" expanded="false" />
-            <element signature="e#4985#5021#0" expanded="false" />
-            <element signature="n#!!block;n#saveNodeDefaults#0" expanded="false" />
-            <element signature="n#!!block;n#ApplyAdvanceOptions#0" expanded="false" />
-            <element signature="n#!!block;n#ApplySearchPaths#0" expanded="false" />
-            <element signature="n#!!block;n#ApplyExtensions#0" expanded="false" />
-            <element signature="n#!!block;n#processOverrideList#0" expanded="false" />
-            <element signature="n#!!block;n#restoreDefault#0" expanded="false" />
-            <element signature="n#!!block;n#stripBOM#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/module.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../advance-require/advance-require.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="651">
-          <caret line="31" column="54" selection-start-line="31" selection-start-column="48" selection-end-line="31" selection-end-column="54" />
-          <folding>
-            <element signature="e#462#1051#0" expanded="false" />
-            <element signature="e#1081#5025#0" expanded="false" />
-            <element signature="e#2537#2616#0" expanded="false" />
-            <element signature="e#2667#2822#0" expanded="false" />
-            <element signature="e#2897#2976#0" expanded="false" />
-            <element signature="e#3027#3182#0" expanded="false" />
-            <element signature="e#3302#3540#0" expanded="false" />
-            <element signature="e#3592#3990#0" expanded="false" />
-            <element signature="e#4033#4070#0" expanded="false" />
-            <element signature="e#4135#4314#0" expanded="false" />
-            <element signature="e#4352#4384#0" expanded="false" />
-            <element signature="e#4498#4615#0" expanded="false" />
-            <element signature="e#4679#4937#0" expanded="false" />
-            <element signature="e#4985#5021#0" expanded="false" />
-            <element signature="n#!!block;n#saveNodeDefaults#0" expanded="false" />
-            <element signature="n#!!block;n#ApplyAdvanceOptions#0" expanded="false" />
-            <element signature="n#!!block;n#ApplySearchPaths#0" expanded="false" />
-            <element signature="n#!!block;n#ApplyExtensions#0" expanded="false" />
-            <element signature="n#!!block;n#processOverrideList#0" expanded="false" />
-            <element signature="n#!!block;n#restoreDefault#0" expanded="false" />
-            <element signature="n#!!block;n#stripBOM#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/module.js" />
+    <entry file="file://$PROJECT_DIR$/advance-require.js" />
+    <entry file="file://$PROJECT_DIR$/lib/module.js" />
+    <entry file="file://$PROJECT_DIR$/advance-require.js" />
+    <entry file="file://$PROJECT_DIR$/lib/module.js" />
+    <entry file="file://$PROJECT_DIR$/advance-require.js" />
     <entry file="file://$PROJECT_DIR$/lib/internal/util.js" />
     <entry file="file://$PROJECT_DIR$/lib/internal/module.js" />
-    <entry file="file://$PROJECT_DIR$/lib/native_module.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="21" column="27" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/module.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="13" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../advance-require/advance-require.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#462#1051#0" expanded="false" />
-            <element signature="e#1081#5025#0" expanded="false" />
-            <element signature="e#2537#2616#0" expanded="false" />
-            <element signature="e#2667#2822#0" expanded="false" />
-            <element signature="e#2897#2976#0" expanded="false" />
-            <element signature="e#3027#3182#0" expanded="false" />
-            <element signature="e#3302#3540#0" expanded="false" />
-            <element signature="e#3592#3990#0" expanded="false" />
-            <element signature="e#4033#4070#0" expanded="false" />
-            <element signature="e#4135#4314#0" expanded="false" />
-            <element signature="e#4352#4384#0" expanded="false" />
-            <element signature="e#4498#4615#0" expanded="false" />
-            <element signature="e#4679#4937#0" expanded="false" />
-            <element signature="e#4985#5021#0" expanded="false" />
-            <element signature="n#!!block;n#saveNodeDefaults#0" expanded="false" />
-            <element signature="n#!!block;n#ApplyAdvanceOptions#0" expanded="false" />
-            <element signature="n#!!block;n#ApplySearchPaths#0" expanded="false" />
-            <element signature="n#!!block;n#ApplyExtensions#0" expanded="false" />
-            <element signature="n#!!block;n#processOverrideList#0" expanded="false" />
-            <element signature="n#!!block;n#restoreDefault#0" expanded="false" />
-            <element signature="n#!!block;n#stripBOM#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/native_module.js" />
+    <entry file="file://$PROJECT_DIR$/lib/module.js" />
+    <entry file="file://$PROJECT_DIR$/advance-require.js" />
     <entry file="file://$PROJECT_DIR$/../Virtual_User_Engine/lib/sandboxsettings.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
@@ -436,96 +314,89 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/internal/util.js" />
     <entry file="file://$PROJECT_DIR$/lib/internal/module.js" />
-    <entry file="file://$PROJECT_DIR$/lib/native_module.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="21" column="27" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../advance-require/test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="6" column="35" selection-start-line="6" selection-start-column="35" selection-end-line="6" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/native_module.js" />
     <entry file="file://$USER_HOME$/Desktop/node-v6.2.0/node-v6.2.0/lib/internal/module.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
           <caret line="4" column="10" selection-start-line="4" selection-start-column="2" selection-end-line="4" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/module.js" />
+    <entry file="file://$PROJECT_DIR$/advance-require.js" />
+    <entry file="file://$PROJECT_DIR$/LICENSE">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="2" column="31" selection-start-line="2" selection-start-column="31" selection-end-line="2" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/lodash/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="80" column="7" selection-start-line="80" selection-start-column="3" selection-end-line="80" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Virtual_User_Engine/node_modules/advance-require/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="351" column="16" selection-start-line="351" selection-start-column="16" selection-end-line="351" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/windows-version.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/node-v6.2.0/node-v6.2.0/lib/module.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="452" column="12" selection-start-line="452" selection-start-column="12" selection-end-line="452" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/module.js">
+    <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="29">
-          <caret line="382" column="0" selection-start-line="382" selection-start-column="0" selection-end-line="382" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../advance-require/advance-require.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+        <state relative-caret-position="306">
+          <caret line="238" column="0" selection-start-line="238" selection-start-column="0" selection-end-line="238" selection-end-column="0" />
           <folding>
-            <element signature="e#462#1051#0" expanded="false" />
-            <element signature="e#1081#5025#0" expanded="false" />
-            <element signature="e#2537#2616#0" expanded="false" />
-            <element signature="e#2667#2822#0" expanded="false" />
-            <element signature="e#2897#2976#0" expanded="false" />
-            <element signature="e#3027#3182#0" expanded="false" />
-            <element signature="e#3302#3540#0" expanded="false" />
-            <element signature="e#3592#3990#0" expanded="false" />
-            <element signature="e#4033#4070#0" expanded="false" />
-            <element signature="e#4135#4314#0" expanded="false" />
-            <element signature="e#4352#4384#0" expanded="false" />
-            <element signature="e#4498#4615#0" expanded="false" />
-            <element signature="e#4679#4937#0" expanded="false" />
-            <element signature="e#4985#5021#0" expanded="false" />
             <element signature="n#!!block;n#saveNodeDefaults#0" expanded="false" />
-            <element signature="n#!!block;n#ApplyAdvanceOptions#0" expanded="false" />
-            <element signature="n#!!block;n#ApplySearchPaths#0" expanded="false" />
-            <element signature="n#!!block;n#ApplyExtensions#0" expanded="false" />
-            <element signature="n#!!block;n#processOverrideList#0" expanded="false" />
+            <element signature="e#8974#9202#0" expanded="false" />
             <element signature="n#!!block;n#restoreDefault#0" expanded="false" />
-            <element signature="n#!!block;n#stripBOM#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../advance-require/LICENSE">
+    <entry file="file://$PROJECT_DIR$/test.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../advance-require/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="2" column="31" selection-start-line="2" selection-start-column="31" selection-end-line="2" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../advance-require/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="10" column="67" selection-start-line="10" selection-start-column="67" selection-end-line="10" selection-end-column="67" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../advance-require/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="-294">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding />
         </state>
       </provider>

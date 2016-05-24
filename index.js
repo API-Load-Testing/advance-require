@@ -82,13 +82,13 @@ var options = function () {
     this.addBlacklist = function (moduleName) {
 
         verify.string(moduleName);
-        Blacklist.push(moduleName);
+        this.Blacklist.push(moduleName);
     };
     this.removeBlacklist = function (moduleName) {
 
         verify.string(moduleName);
-        if (Blacklist.indexOf(moduleName) >= 0)
-            Blacklist.splice(Blacklist.indexOf(moduleName), 1);
+        if (this.Blacklist.indexOf(moduleName) >= 0)
+            this.Blacklist.splice(this.Blacklist.indexOf(moduleName), 1);
     };
 
 
@@ -96,13 +96,13 @@ var options = function () {
     this.addWhitelist = function (moduleName) {
 
         verify.string(moduleName);
-        whitelist.push(moduleName);
+        this.Whitelist.push(moduleName);
     };
     this.removeWhitelist = function (moduleName) {
 
         verify.string(moduleName);
-        if (Whitelist.indexOf(moduleName) >= 0)
-            Whitelist.splice(Blacklist.indexOf(moduleName), 1);
+        if (this.Whitelist.indexOf(moduleName) >= 0)
+            this.Whitelist.splice(this.Blacklist.indexOf(moduleName), 1);
     };
 
 
@@ -180,7 +180,7 @@ function saveNodeDefaults() {
 
     NodeDefaultMethods.require = NodeModule.prototype.require;
     NodeDefaultMethods.NODE_PATH = process.env['NODE_PATH'];
-    NodeDefaultMethods.extensions = moduleObj._extensions.slice(0);
+    NodeDefaultMethods.extensions = _.cloneDeep(NodeModule._extensions);
 }
 
 function ApplyAdvanceOptions(moduleObj, userOptions) {
@@ -217,7 +217,7 @@ function ApplyAdvanceOptions(moduleObj, userOptions) {
         }
 
         // run onBefore require event listeners
-        userOptions.onBeforeRequire.forEach(function (method) {
+        userOptions._getOnBeforeRequire().forEach(function (method) {
             method.call(this, moduleName)
         });
 
@@ -225,10 +225,19 @@ function ApplyAdvanceOptions(moduleObj, userOptions) {
         // we shall not process modules in Override list,
         // thus we just hand the operation to the override method,
         // with modulename, absolute file name, and a handler to default require object
-        var userResult = processOverrideList(moduleObj, userOptions, originalRequire);
+        var userResult = processOverrideList(moduleName, moduleObj, userOptions, originalRequire);
 
 
-        var filename = moduleObj._resolveFilename(moduleName, this, false);
+        var filename
+        if (userResult && userResult.newResult){
+            try {
+                filename = moduleObj._resolveFilename(moduleName, this, false);
+            } catch (err) {
+                filename = moduleName;
+            }
+        } else {
+            filename = moduleObj._resolveFilename(moduleName, this, false);
+        }
         // Before starting require, clear cash for reload of modules
         if (userOptions.reload && _NATIVE_MODULES.indexOf(moduleName) < 0) {
             // only external modules can reload
@@ -241,11 +250,11 @@ function ApplyAdvanceOptions(moduleObj, userOptions) {
         var source = "";
         var requiredModule = null;
 
-        if (userResult.newResult) {
+        if (userResult && userResult.newResult) {
 
             requiredModule = userResult.newResult;
 
-        } else if (userResult.changeSource) {
+        } else if (userResult && userResult.changeSource) {
 
             source = userResult.newSource;
             var tempModule = new moduleObj.Module(filename, this);
@@ -253,13 +262,16 @@ function ApplyAdvanceOptions(moduleObj, userOptions) {
             requiredModule = tempModule.exports;
         }
         else {
-            source = stripBOM(fs.readFileSync(filename, 'utf8'));
+            if (_NATIVE_MODULES.indexOf(moduleName) < 0)
+                source = stripBOM(fs.readFileSync(filename, 'utf8'));
+            else
+                source = "Native Module";
             requiredModule = moduleObj._load(moduleName, this, /* isMain */ false);
         }
 
 
         // run onRequire event listeners
-        userOptions.onRequire.forEach(function (method) {
+        userOptions._getOnRequire().forEach(function (method) {
             var userResult = method.call(this, moduleName, source, requiredModule);
             if (userResult) requiredModule = userResult;
         });
@@ -278,7 +290,7 @@ function ApplyAdvanceOptions(moduleObj, userOptions) {
 
         // just before returning the resulted module
         // run onAfterRequire event listeners
-        userOptions.onAfterRequire.forEach(function (method) {
+        userOptions._getOnAfterRequire().forEach(function (method) {
             method.call(this, ResultedModule, moduleName);
         });
 
@@ -299,6 +311,7 @@ function ApplySearchPaths(moduleObj, userOptions) {
         for (var i = 0; i < paths.length; i++) {
             nodePath += paths[i] + path.delimiter;
         }
+        process.env['NODE_PATH'] = nodePath;
         moduleObj._initPaths();
     }
 }
@@ -306,15 +319,16 @@ function ApplySearchPaths(moduleObj, userOptions) {
 
 function ApplyExtensions(moduleObj, userOptions) {
 
-    var extentionList = userOptions._getExtensionList;
+    var extentionList = userOptions._getExtensionList();
     for (var ext in extentionList) {
 
         moduleObj._extensions[ext] = function (module, filename) {
 
             var source = stripBOM(fs.readFileSync(filename, 'utf8'));
-            extentionList[ext].every(function (method) {
+            if (extentionList[ext].every(function (method) {
                 var userResult = null;
                 userResult = method(source, filename);
+
                 if (!userResult || userResult === null) userResult = source;
 
                 if (!_.isString(userResult)) {   // stop operation, return this value
@@ -324,14 +338,13 @@ function ApplyExtensions(moduleObj, userOptions) {
                     source = userResult;   // set the newly set ret value
                     return true;
                 }
-            });
-            module._compile(source, filename);
+            })) module._compile(source, filename);
         };
     }
 };
 
 
-function processOverrideList(moduleObj, userOptions, originalRequire) {
+function processOverrideList(moduleName, moduleObj, userOptions, originalRequire) {
 
     var filename = "";
     try {
@@ -348,10 +361,11 @@ function processOverrideList(moduleObj, userOptions, originalRequire) {
                 return {newSource: userResult.newSource, changeSource: true}
             } else if (userResult.newResult) {
                 return {newResult: userResult.newResult, changeSource: false}
-            } else {
-                return {noNewResult: true};
+            } else if (userResult instanceof Object) {
+                return {newResult: userResult, changeSource: false}
             }
         }
+        return {noNewResult: true};
     }
 }
 
@@ -360,7 +374,7 @@ function restoreDefault() {
 
     if (!NodeModule.upgradedToAdvanced) return;
 
-    NodeModule._extensions = NodeDefaultMethods.extensions.slice(0);
+    NodeModule._extensions = _.cloneDeep(NodeDefaultMethods.extensions);
     process.env['NODE_PATH'] = NodeDefaultMethods.NODE_PATH;
     NodeModule._initPaths();
     NodeModule.prototype.require = NodeDefaultMethods.require;
@@ -393,12 +407,20 @@ module.exports.restoreNodeRequire = function () {
     restoreDefault(NodeModule);
 }
 
-module.exports.getAdvanceRequire = function (userOptions) {
+module.exports.getAdvanceRequire = function (parent, userOptions) {
+
+    if (!parent) {
+        throw new Error('parent can not be null, provide "module" as parent');
+    }
+    if (parent instanceof options) {
+        throw new Error('parent can not be null, provide "module" as parent\narguments (parent, options)');
+    }
 
     if (!userOptions) userOptions = new options();
     else if (!userOptions instanceof options) userOptions = new options();
 
     var copyNodeModule = _.cloneDeep(NodeModule);
+    copyNodeModule.prototype = _.cloneDeep(NodeModule.prototype);
     ApplyAdvanceOptions(copyNodeModule, userOptions);
-    return copyNodeModule.require;
+    return copyNodeModule.prototype.require.bind(parent);
 }
