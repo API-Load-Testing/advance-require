@@ -1,6 +1,6 @@
 {
-  "name": "require-admin",
-  "version": "1.0.0",
+  "name": "advance-require",
+  "version": "0.4.0",
   "description": "upgrades nodes default require() to an Advanced one with administrative options",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/API-Load-Testing/require-admin.git"
+    "url": "git+https://github.com/API-Load-Testing/advance-require.git"
   },
   "keywords": [
     "require",
@@ -17,18 +17,22 @@
     "module",
     "whitelist",
     "blacklist",
-    "require",
+    "requireEvents",
     "extensions",
-    "require",
-    "other",
-    "files"
+    "onBeforeRequire",
+    "onRequire",
+    "onAfterRequire",
+    "FilterRequire",
+    "ChangeRequire",
+    "ChangeModuleSource",
+    "requireSource"
   ],
   "author": "Hassan Eslaminezhad (Salari)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/API-Load-Testing/require-admin/issues"
+    "url": "https://github.com/API-Load-Testing/advance-require/issues"
   },
-  "homepage": "https://github.com/API-Load-Testing/require-admin#readme",
+  "homepage": "https://github.com/API-Load-Testing/advance-require#readme",
   "dependencies": {
     "lodash": "^4.13.0"
   }
