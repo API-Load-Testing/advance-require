@@ -52,10 +52,8 @@ var options = new Advance_Require.options();
 // 1. to upgrade nodes default require method with provided options
  Advance_Require.upgradeNodeRequire(options);
 
-<<<<<<< HEAD
 var tempVar = require('some_module');
-=======
->>>>>>> origin/master
+
 
 // 2. to restore nodes default require method
  Advance_Require.restoreNodeRequire();
@@ -64,11 +62,8 @@ var tempVar = require('some_module');
 
 // 3. to get an advanced require method without upgrading the nodes default metod
  var myrequire = Advance_Require.getAdvanceRequire(module, options);
-<<<<<<< HEAD
  
  var tempVar = myrequire('some_module');
-=======
->>>>>>> origin/master
 
 //  Note the use of "module" in above line, its a handle to parent 
 //  object as it is the current module, so always use it this way
@@ -79,21 +74,14 @@ var tempVar = require('some_module');
 # options
 To set the behavior of the require method, 
 here is a list of methods and properties of the options object  
-<<<<<<< HEAD
-**Note:** Changes to options will take effect immediately on modules its linked to  
-=======
 **Note:** Changes to options will take effect immidietly on modules its linked to  
->>>>>>> origin/master
  This means you can *upgradeNodeRequire* then set the options
 
 ### Path
 This will add search paths to require, solving lots of "../../../lib" like problems  
-<<<<<<< HEAD
 **Attention:** Changes to path does not take effect immediately, add paths before   
             linking the options to node    
-=======
 
->>>>>>> origin/master
 ```js
  options.addPath('C:\\');
  options.addPath('..\\..\\..\\lib');
@@ -151,12 +139,9 @@ VM to run user code, but dont want to let user access 'fs' or 'process'
  require('fs');  // throws Error: use of module fs is restricted
 ```
 
-<<<<<<< HEAD
-### Whitelist
-=======
 ### WhiteList
->>>>>>> origin/master
-oposite of blacklist, only allows require of modules granted, default is all modules
+
+Opposite of blacklist, only allows require of modules granted, default is all modules
 
 ```js
  options.addWhitelist('path');
@@ -192,7 +177,7 @@ both do the same job
 There are 3 Events that will fire on a require operation:
     
 #### onBeforeRequire
-<<<<<<< HEAD
+
    this event fires before running the require operation passing the  
    moduleName to the event listener, this is good for logging or filter  
    operations  
@@ -371,7 +356,7 @@ might want to response to non existence modules with an object containig
 a message, or whatever you want
 
 the override operation is done after the "OnBeforeRequire" event and  
-just Before "OnRequir" event handlers
+just Before "OnRequire" event handlers
 
      usage: options.addOverrideModule(moduleName, function)
      moduleName: is the module to override
@@ -421,40 +406,4 @@ Lastly and more importantly:
 I want to thank a friend whose supporting and encouraging me
 
 ###   Thank you **MEHDI** good old friend
-    
-=======
-     this event fires before running the require operation passing the  
-     moduleName to the event listener, this is good for logging or filter  
-     operations  
-     **Note:** This will run only on allowd modules, meaning Blacklist,  
-             Whitelist, AllowExternal operations are done first  
-     
-#### onRequire
-     this event fired while doing the require operation, passing the filename,  
-     source, requiredModule refrence to the event listner  
-     you can change the source or the requiredModule object here resulting on  
-     a new object
-     
-#### onAfterRequire
-     this event fires after complition of require operation and just before   
-     returning the resulted object to the caller module, the listner will recive  
-     a handle to requiredModule so it can make changes to the object
-     
-one can have as many Event listners and they run in the order they are added
 
-```js
-//......
-```
-     
-     
-```js
-     
-Sorry Im really tired, will write the rest of this manual tomorrow
-      
-      
-//  * [Add new Extensions in a simple way](#extensions)
-//  * [override require of some modules](#override)
-//  * [get a copy of required module](#usecopy)
- 
-```
->>>>>>> origin/master
