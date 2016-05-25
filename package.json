@@ -1,8 +1,8 @@
 {
   "name": "advance-require",
-  "version": "0.4.3",
+  "version": "0.4.5",
   "description": "upgrades nodes default require() to an Advanced one with administrative options",
-  "main": "index.js",
+  "main": "advance-require.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
