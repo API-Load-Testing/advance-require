@@ -424,3 +424,22 @@ module.exports.getAdvanceRequire = function (parent, userOptions) {
     ApplyAdvanceOptions(copyNodeModule, userOptions);
     return copyNodeModule.prototype.require.bind(parent);
 }
+
+module.exports.getUpgradedModule = function (parent, userOptions) {
+
+    if (!parent) {
+        throw new Error('parent can not be null, provide "module" as parent');
+    }
+    if (parent instanceof options) {
+        throw new Error('parent can not be null, provide "module" as parent\narguments (parent, options)');
+    }
+
+    if (!userOptions) userOptions = new options();
+    else if (!userOptions instanceof options) userOptions = new options();
+
+    var copyNodeModule = _.cloneDeep(NodeModule);
+    copyNodeModule.prototype = _.cloneDeep(NodeModule.prototype);
+    ApplyAdvanceOptions(copyNodeModule, userOptions);
+    copyNodeModule.prototype.require.bind(parent);
+    return copyNodeModule;
+}
