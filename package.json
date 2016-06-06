@@ -1,6 +1,6 @@
 {
   "name": "advance-require",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "upgrades nodes default require() to an Advanced one with administrative options",
   "main": "advance-require.js",
   "scripts": {

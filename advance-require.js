@@ -39,8 +39,11 @@ var options = function () {
     var onBeforeRequire = [];
     this.addOnBeforeRequire = function (method) {
         if (!method) return;
-        if (_.isFunction(method) && onBeforeRequire.indexOf(method) < 0)
-            onBeforeRequire.push(method);
+        if (!Array.isArray(method)) method = [method];
+        method.forEach(function (method) {
+            if (_.isFunction(method) && onBeforeRequire.indexOf(method) < 0)
+                onBeforeRequire.push(method);
+        });
     }
     this._getOnBeforeRequire = function () {
         return onBeforeRequire;
@@ -50,8 +53,11 @@ var options = function () {
     var onRequire = [];
     this.addOnRequire = function (method) {
         if (!method) return;
-        if (_.isFunction(method) && onRequire.indexOf(method) < 0)
-            onRequire.push(method);
+        if (!Array.isArray(method)) method = [method];
+        method.forEach(function (method) {
+            if (_.isFunction(method) && onRequire.indexOf(method) < 0)
+                onRequire.push(method);
+        });
     }
     this._getOnRequire = function () {
         return onRequire;
@@ -61,8 +67,11 @@ var options = function () {
     var onAfterRequire = [];
     this.addOnAfterRequire = function (method) {
         if (!method) return;
-        if (_.isFunction(method) && onAfterRequire.indexOf(method) < 0)
-            onAfterRequire.push(method);
+        if (!Array.isArray(method)) method = [method];
+        method.forEach(function (method) {
+            if (_.isFunction(method) && onAfterRequire.indexOf(method) < 0)
+                onAfterRequire.push(method);
+        });
     }
     this._getOnAfterRequire = function () {
         return onAfterRequire;
@@ -117,6 +126,20 @@ var options = function () {
             extentionList[ext].push(method);
         }
     };
+    this.addExtensionList = function (ExtObject) {
+
+        Object.getOwnPropertyNames(ExtObject).forEach(function(keyName) {
+            var method = ExtObject[keyName];
+            if (_.isFunction(method)) {
+                if (!extentionList[keyName]) {
+                    extentionList[keyName] = [];
+                }
+                if (extentionList[keyName].indexOf(method) < 0) {
+                    extentionList[keyName].push(method)
+                }
+            }
+        });
+    };
     this.removeExtension = function (ext, method) {
 
         verify.extension(ext);
@@ -136,12 +159,16 @@ var options = function () {
 
 
     var pathList = [];
-    this.addPath = function (newPath) {
+    this.addPath = function (paths) {
 
-        verify.string(newPath);
-        var absolutePath = path.resolve(newPath);
-        if (pathList.indexOf(absolutePath) < 0)
-            pathList.push(absolutePath);
+        if (!Array.isArray(paths)) paths = [paths];
+
+        paths.forEach(function (newPath) {
+            verify.string(newPath);
+            var absolutePath = path.resolve(newPath);
+            if (pathList.indexOf(absolutePath) < 0)
+                pathList.push(absolutePath);
+        });
     };
     this._getPathList = function () {
         return pathList;
@@ -154,6 +181,16 @@ var options = function () {
         verify.method(method);
         verify.string(moduleName);
         overrideList[moduleName] = method;
+    };
+    this.addOverrideModuleList = function (overrideObject) {
+
+        Object.getOwnPropertyNames(overrideObject).forEach(function(moduleName) {
+            var method = overrideObject[moduleName];
+            verify.method(method);
+            verify.string(moduleName);
+            overrideList[moduleName] = method;
+        });
+
     };
     this.removeOverrideModule = function (moduleName, method) {
 
@@ -228,8 +265,8 @@ function ApplyAdvanceOptions(moduleObj, userOptions) {
         var userResult = processOverrideList(moduleName, moduleObj, userOptions, originalRequire);
 
 
-        var filename
-        if (userResult && userResult.newResult){
+        var filename;
+        if (userResult && userResult.newResult) {
             try {
                 filename = moduleObj._resolveFilename(moduleName, this, false);
             } catch (err) {
@@ -326,19 +363,19 @@ function ApplyExtensions(moduleObj, userOptions) {
 
             var source = stripBOM(fs.readFileSync(filename, 'utf8'));
             if (extentionList[ext].every(function (method) {
-                var userResult = null;
-                userResult = method(source, filename);
+                    var userResult = null;
+                    userResult = method(source, filename);
 
-                if (!userResult || userResult === null) userResult = source;
+                    if (!userResult || userResult === null) userResult = source;
 
-                if (!_.isString(userResult)) {   // stop operation, return this value
-                    module.exports = userResult;
-                    return false;
-                } else {
-                    source = userResult;   // set the newly set ret value
-                    return true;
-                }
-            })) module._compile(source, filename);
+                    if (!_.isString(userResult)) {   // stop operation, return this value
+                        module.exports = userResult;
+                        return false;
+                    } else {
+                        source = userResult;   // set the newly set ret value
+                        return true;
+                    }
+                })) module._compile(source, filename);
         };
     }
 };
