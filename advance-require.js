@@ -4,6 +4,9 @@ var _ = require('lodash');
 var path = require('path');
 var fs = require('fs');
 var NodeModule = require('module');
+var util         = require("util");
+var EventEmitter = require("events").EventEmitter;
+
 var NodeDefaultMethods = {};
 var _NATIVE_MODULES = ['assert', 'buffer', 'child_process', 'constants', 'crypto', 'tls', 'dgram', 'dns', 'http', 'https', 'net', 'querystring', 'url', 'domain', 'events', 'fs', 'path', 'module', 'os', 'punycode', 'stream', 'string_decoder', 'timers', 'tty', 'util', 'sys', 'vm', 'zlib'];
 
@@ -31,60 +34,11 @@ var verify = {
 
 var options = function () {
 
+    EventEmitter.call(this);
+
     this.useCopy = false;
     this.reload = false;
     this.allowExternalModules = true;
-
-
-    var onBeforeRequire = [];
-    this.addOnBeforeRequire = function (method) {
-        if (!method) return;
-        if (!Array.isArray(method)) method = [method];
-        method.forEach(function (method) {
-            if (_.isFunction(method) && onBeforeRequire.indexOf(method) < 0)
-                onBeforeRequire.push(method);
-        });
-    }
-    this._getOnBeforeRequire = function () {
-        return onBeforeRequire;
-    }
-
-
-    var onRequire = [];
-    this.addOnRequire = function (method) {
-        if (!method) return;
-        if (!Array.isArray(method)) method = [method];
-        method.forEach(function (method) {
-            if (_.isFunction(method) && onRequire.indexOf(method) < 0)
-                onRequire.push(method);
-        });
-    }
-    this._getOnRequire = function () {
-        return onRequire;
-    }
-
-
-    var onAfterRequire = [];
-    this.addOnAfterRequire = function (method) {
-        if (!method) return;
-        if (!Array.isArray(method)) method = [method];
-        method.forEach(function (method) {
-            if (_.isFunction(method) && onAfterRequire.indexOf(method) < 0)
-                onAfterRequire.push(method);
-        });
-    }
-    this._getOnAfterRequire = function () {
-        return onAfterRequire;
-    }
-
-
-    this.on = function (eventName, method) {
-        if (!method) return;
-        if (!_.isFunction(method)) return;
-        if (_.toUpper(eventName) === 'ONBEFOREREQUIRE') this.addOnBeforeRequire(method);
-        else if (_.toUpper(eventName) === 'ONREQUIRE') this.addOnRequire(method);
-        else if (_.toUpper(eventName) === 'ONAFTERREQUIRE') this.addOnAfterRequire(method);
-    }
 
 
     this.Blacklist = [];
@@ -238,6 +192,7 @@ function ApplyAdvanceOptions(moduleObj, userOptions) {
 
         verify.string(moduleName);
 
+        userOptions.emit('beforeRequire', moduleName);
         // this is onBeforeRequire Event place
         // first BlackList, WhiteList, AllowExternal inner Controls
         // if passed these controls, call user defined eventListners
@@ -252,11 +207,6 @@ function ApplyAdvanceOptions(moduleObj, userOptions) {
         if (!userOptions.allowExternalModules && _NATIVE_MODULES.indexOf(moduleName) < 0) {
             throw new Error('Use of external modules is restricted, have (' + moduleName + ')');
         }
-
-        // run onBefore require event listeners
-        userOptions._getOnBeforeRequire().forEach(function (method) {
-            method.call(this, moduleName)
-        });
 
 
         // we shall not process modules in Override list,
@@ -307,11 +257,7 @@ function ApplyAdvanceOptions(moduleObj, userOptions) {
         }
 
 
-        // run onRequire event listeners
-        userOptions._getOnRequire().forEach(function (method) {
-            var userResult = method.call(this, moduleName, source, requiredModule);
-            if (userResult) requiredModule = userResult;
-        });
+        userOptions.emit('require', moduleName, source, requiredModule);
 
 
         //  use copy
@@ -325,11 +271,7 @@ function ApplyAdvanceOptions(moduleObj, userOptions) {
         }
 
 
-        // just before returning the resulted module
-        // run onAfterRequire event listeners
-        userOptions._getOnAfterRequire().forEach(function (method) {
-            method.call(this, ResultedModule, moduleName);
-        });
+        userOptions.emit('afterRequire', ResultedModule, moduleName);
 
         return ResultedModule;
     }
@@ -430,6 +372,8 @@ function stripBOM(content) {
 
 
 //------------------------------------------------------------------------------
+
+util.inherits(options, EventEmitter);
 
 module.exports.options = options;
 

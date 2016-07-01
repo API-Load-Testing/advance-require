@@ -2,6 +2,11 @@
 a customized version of require, used to override Nodes require() method,
 providing administrative access
 
+## Attention
+Major Changes in Event handling system happend and now its using the nodes
+default Event Emitter methods, but as the project is in production and test mode,
+no major version change happened  
+
 
 ## Info
 This came to being as part of a project to run untrusted user code,
@@ -18,9 +23,9 @@ This package gives you the following feutures:
   * [WhiteList](#whitelist)
   * [Enable/Disable External module reuire](#allowexternal)
   * [Events](#events)
-     * [onBeforeRequire](#onbeforerequire)
-     * [onRequire](#onrequire)
-     * [onAfterRequire](#onafterrequire)
+     * [beforeRequire](#beforerequire)
+     * [require](#require)
+     * [afterRequire](#afterrequire)
   * [Add new Extensions in a simple way](#extensions)
   * [override require of some modules](#override)
   * [get a copy of required module](#usecopy)
@@ -60,7 +65,7 @@ var tempVar = require('some_module');
 
 
 
-// 3. to get an advanced require method without upgrading the nodes default metod
+// 3. to get an advanced require method without upgrading the nodes default method
  var myrequire = Advance_Require.getAdvanceRequire(module, options);
  
  var tempVar = myrequire('some_module');
@@ -176,52 +181,32 @@ both do the same job
 
 There are 3 Events that will fire on a require operation:
     
-#### onBeforeRequire
+#### beforeRequire
 
    this event fires before running the require operation passing the  
    moduleName to the event listener, this is good for logging or filter  
    operations  
-   **Note:** This will run only on allowd modules, meaning Blacklist,  
-           Whitelist, AllowExternal operations are done first  
      
-        usage:  options.addOnBeforeRequire(function);  
+        usage:  options.on('beforeRequire', listener );  
         listener: function (moduleName)  
-        result: no output result is expected
         
    
-#### onRequire
+#### require
    this event fired while doing the require operation, passing the moduleName,  
    source, requiredModule refrence to the event listner  
-   you can change the source or the requiredModule object here resulting on  
-   a new object
      
-       usage:  options.addOnRequire(function)  
+       usage:  options.on('require', listener )  
        listner:  function (moduleName, source, requiredModule)  
-       result:  if any result is available, it will be considered as the  
-                require module resulted object, and overrides other operations
 
         
-#### onAfterRequire
+#### afterRequire
    this event fires after complition of require operation and just before   
    returning the resulted object to the caller module, the listner will recive  
    a handle to requiredModule so it can make changes to the object
         
-        usage: options.addOnAfterRequire(function)
+        usage: options.on('afterRequire', listener )
         listner:  function (ResultedModule, moduleName)
-        result:  no output result is expected
 
-
-#### options.on
-   this function is used to set the event handlers, and does the same as 3 above:
-   
-       usage: options.on(eventName, function)
-       eventName is one of : 
-                "onBeforeRequire"
-                "onRequire"
-                "onAfterRequire"
-       listner function signature is as discribed above
-
-one can have as many Event listners and they run in the order they are added
 
 Events Example
 --------------
@@ -234,16 +219,16 @@ Events Example
  var options = new Advance_Require.options();
  
  //-------- set the events
- options.addOnBeforeRequire(myModuleNameLogger);
- options.addOnBeforeRequire(myModuleFilters);
+ options.on('beforeRequire', myModuleNameLogger);
+ options.on('beforeRequire', myModuleFilters);
  
- options.addOnRequire(mySourceLogger);
- options.addOnRequire(myModuleSwitch);
+ options.on('require', mySourceLogger);
  
- options.addOnAfterRequire(myAddItemsToModule);
+ options.on('afterRequire', myAddItemsToModule);
  
  //---- Link Node Require with provided options
  Advance_Require.upgradeNodeRequire(options);
+ 
  
  //---- the listener functions
  
@@ -269,30 +254,11 @@ Events Example
      console.log('---- And the resulted object is: ', requiredModule);
  }
  
- function myModuleSwitch (moduleName, source, requiredModule) {
-     if (moduleName === 'path') {
-         var res = {
-             message: 'if we return anything, the resulted Require object will change with that',
-             Item1: 10,
-             Item2: 'Lets add refrence to required method too',
-             Item3: requiredModule
-         }
-         return res
-     } else if (moduleName === 'my_external_module') {
-         console.log('my External Module is Here, Lets add some items to it');
-         var res = requiredMethod;
-         res.newItem1 = 'This Is External module';
-         res.newItem2 = 123;
- 
-         return res
-     }
- }
- 
  function myAddItemsToModule (ResultedModule, moduleName) {
  
      console.log('This is the last Stand');
      if (moduleName === 'os')
-         ResultedModule.my_final: 'Controls';
+         ResultedModule.my_final = 'Controls';
      else if (moduleName === 'net' && ResultedModule)
          ResultedModule.myGithubAddr = 'https://github.com/API-Load-Testing/advance-require';
  }
@@ -301,7 +267,6 @@ Events Example
  
  //var fs = require('fs');      // Error: use of [fs] is restricted
  var path = require('path');
- console.log(path);           // the new items added to path
  var net = require('net');
  console.log(net);
  var http = require('http');
