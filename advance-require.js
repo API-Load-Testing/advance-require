@@ -355,11 +355,9 @@ function processOverrideList(moduleName, moduleObj, userOptions, originalRequire
 }
 
 
-function applySandbox(moduleObj, sandbox) {
+function applySandbox(moduleObj, contextifiedSandbox) {
 
-    var contextifiedSandbox = sandbox;
-
-    if (!vm.isContext(sandbox)) contextifiedSandbox = vm.createContext(sandbox);
+    if (!vm.isContext(contextifiedSandbox))  vm.createContext(contextifiedSandbox);
 
     moduleObj.prototype._compile = function(content, filename) {
         // Remove shebang
