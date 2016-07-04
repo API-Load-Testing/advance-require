@@ -1,14 +1,15 @@
 'use strict';
 
-var _ = require('lodash');
-var path = require('path');
-var fs = require('fs');
+const _ = require('lodash');
+const path = require('path');
+const fs = require('fs');
+const vm = require('vm');
 var NodeModule = require('module');
-var util         = require("util");
-var EventEmitter = require("events").EventEmitter;
+const util         = require("util");
+const EventEmitter = require("events").EventEmitter;
 
 var NodeDefaultMethods = {};
-var _NATIVE_MODULES = ['assert', 'buffer', 'child_process', 'constants', 'crypto', 'tls', 'dgram', 'dns', 'http', 'https', 'net', 'querystring', 'url', 'domain', 'events', 'fs', 'path', 'module', 'os', 'punycode', 'stream', 'string_decoder', 'timers', 'tty', 'util', 'sys', 'vm', 'zlib'];
+const _NATIVE_MODULES = ['assert', 'buffer', 'child_process', 'constants', 'crypto', 'tls', 'dgram', 'dns', 'http', 'https', 'net', 'querystring', 'url', 'domain', 'events', 'fs', 'path', 'module', 'os', 'punycode', 'stream', 'string_decoder', 'timers', 'tty', 'util', 'sys', 'vm', 'zlib'];
 
 var verify = {
     extension: function (str) {
@@ -39,7 +40,8 @@ var options = function () {
     this.useCopy = false;
     this.reload = false;
     this.allowExternalModules = true;
-
+    this.useSandbox = false;
+    this.sandbox = {};
 
     this.Blacklist = [];
     this.addBlacklist = function (moduleName) {
@@ -170,6 +172,7 @@ var options = function () {
 function saveNodeDefaults() {
 
     NodeDefaultMethods.require = NodeModule.prototype.require;
+    NodeDefaultMethods._compile = NodeModule.prototype._compile;
     NodeDefaultMethods.NODE_PATH = process.env['NODE_PATH'];
     NodeDefaultMethods.extensions = _.cloneDeep(NodeModule._extensions);
 }
@@ -185,6 +188,9 @@ function ApplyAdvanceOptions(moduleObj, userOptions) {
     ApplySearchPaths(moduleObj, userOptions);
     ApplyExtensions(moduleObj, userOptions);
 
+    if (userOptions.useSandbox) {
+        applySandbox(moduleObj, userOptions.sandbox);
+    }
 
     // --  overriding default require
     var originalRequire = moduleObj.prototype.require;
@@ -349,6 +355,59 @@ function processOverrideList(moduleName, moduleObj, userOptions, originalRequire
 }
 
 
+function applySandbox(moduleObj, sandbox) {
+
+    var contextifiedSandbox = sandbox;
+
+    if (!vm.isContext(sandbox)) contextifiedSandbox = vm.createContext(sandbox);
+
+    moduleObj.prototype._compile = function(content, filename) {
+        // Remove shebang
+        var contLen = content.length;
+        if (contLen >= 2) {
+            if (content.charCodeAt(0) === 35/*#*/ &&
+                content.charCodeAt(1) === 33/*!*/) {
+                if (contLen === 2) {
+                    // Exact match
+                    content = '';
+                } else {
+                    // Find end of shebang line and slice it off
+                    var i = 2;
+                    for (; i < contLen; ++i) {
+                        var code = content.charCodeAt(i);
+                        if (code === 10/*\n*/ || code === 13/*\r*/)
+                            break;
+                    }
+                    if (i === contLen)
+                        content = '';
+                    else {
+                        // Note that this actually includes the newline character(s) in the
+                        // new output. This duplicates the behavior of the regular expression
+                        // that was previously used to replace the shebang line
+                        content = content.slice(i);
+                    }
+                }
+            }
+        }
+
+        // create wrapper function
+        var wrapper = '(function (exports, require, module, __filename, __dirname) { ' + (content) + '\n});';
+
+        var compiledWrapper = vm.runInContext(wrapper, contextifiedSandbox, {
+            filename: filename,
+            lineOffset: 0,
+            displayErrors: true
+        });
+
+
+        var dirname = path.dirname(filename);
+        var args = [this.exports, moduleObj.require, this, filename, dirname];
+        var result = compiledWrapper.apply(this.exports, args);
+        return result;
+    };
+
+}
+
 function restoreDefault() {
 
     if (!NodeModule.upgradedToAdvanced) return;
@@ -357,6 +416,7 @@ function restoreDefault() {
     process.env['NODE_PATH'] = NodeDefaultMethods.NODE_PATH;
     NodeModule._initPaths();
     NodeModule.prototype.require = NodeDefaultMethods.require;
+    NodeModule.prototype._compile = NodeDefaultMethods._compile;
     delete NodeModule.upgradedToAdvanced;
 }
 
