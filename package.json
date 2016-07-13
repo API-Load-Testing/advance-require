@@ -1,6 +1,6 @@
 {
   "name": "advance-require",
-  "version": "0.8.1",
+  "version": "1.0.11-0",
   "description": "upgrades nodes default require() to an Advanced one with administrative options",
   "main": "advance-require.js",
   "scripts": {
@@ -34,6 +34,6 @@
   },
   "homepage": "https://github.com/API-Load-Testing/advance-require#readme",
   "dependencies": {
-    "lodash": "^4.13.0"
+    "lodash": "^4.13.1"
   }
 }
